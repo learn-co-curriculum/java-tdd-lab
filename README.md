@@ -27,10 +27,6 @@ if we pass the method the integer 15, we would get an output like this:
 
 ## Instructions
 
-Fork and clone this code-along repository. You should see something that looks
-like the solution to our last lab in this repository. So let's reuse that to
-integrate this new functionality:
-
 When you look at the files in this repository, you should see something that
 looks like the solution to our last lab. Let's reuse that to integrate this new
 functionality:
@@ -111,7 +107,7 @@ this:
 @Test
 void testSingularFizzBuzzStringList() {
     String expectedResult = "1";
-    assertEquals(expectedResult, fizzBuzz.fizzBuzzStringList(1));
+    assertEquals(expectedResult, Lab.fizzBuzzStringList(1));
 }
 ```
 
@@ -300,5 +296,53 @@ long as that method works properly _and_ the `fizzBuzzStringList()` method
 accurately iterates through the `for` loop and passes the correct values to the
 `fizzBuzz()` method, all the "FizzBuzz scenarios" will be covered successfully.
 
-Now let's run our entire test suite! Double check that all 7 unit tests pass as
-expected and turn in your `Lab.java` and `LabTest.java` assignments.
+## Edge Cases
+
+The last thing for us to do is to add unit tests to cover the potential edge
+cases. For example, what should happen if the number 0 is passed to the
+`fizzBuzzStringList()` method?
+
+Let's add a test case for this and assume the returned `String` should be empty,
+"", if that is the case!
+
+```java
+@Test
+void testZeroFizzBuzzStringList() {     
+    assertEquals("", Lab.fizzBuzzStringList(0));
+}
+```
+
+If you run the test above, you will see that it passes! This is because in
+the `fizzBuzzStringList()` method, we initialized the returned `String` to an
+empty string:
+
+```java
+// Initialize result to an empty string
+String result = "";
+```
+
+If this test failed though, we would go through the TDD cycle again with
+refactoring the method in question until the test passed. Since it has passed,
+we will move onto the next edge case.
+
+Consider a negative number is passed as an argument to the `fizzBuzzStringList()`
+method. We do not want to find the FizzBuzz-based replacements for negative
+values in this case. Add another test case to handle this edge case and assume
+the method will return an empty string here as well.
+
+```java
+@Test
+void testNegativeFizzBuzzStringList() {
+    assertEquals("", Lab.fizzBuzzStringList(-5));
+}
+```
+
+When you execute this test, it will also pass.
+
+It just so happened that these two edge cases have already been covered! Hooray!
+Even though they didn't require any refactoring to the code, it is still best
+practice to test all our edge cases when unit testing.
+
+Now let's run our entire test suite! Double check that all 9 unit tests
+pass as expected and turn in your `Lab.java` and `LabTest.java`
+assignments.
